@@ -1,50 +1,45 @@
-const state = {
-  count: 0
-}
+const initialState = {
+  count: 0,
+};
 
-// mutations are operations that actually mutates the state.
-// each mutation handler gets the entire state tree as the
-// first argument, followed by additional payload arguments.
-// mutations must be synchronous and can be recorded by plugins
-// for debugging purposes.
 const mutations = {
-  increment (state) {
-    state.count++
+  increment(state) {
+    state.count += 1;
   },
-  decrement (state) {
-    state.count--
-  }
-}
+  decrement(state) {
+    state.count -= 1;
+  },
+};
 
-// actions are functions that cause side effects and can involve
-// asynchronous operations.
 const actions = {
   increment: ({ commit }) => commit('increment'),
   decrement: ({ commit }) => commit('decrement'),
-  incrementIfOdd ({ commit, state }) {
+  incrementIfOdd({ commit, state }) {
     if ((state.count + 1) % 2 === 0) {
-      commit('increment')
+      commit('increment');
     }
   },
-  incrementAsync ({ commit }) {
-    return new Promise((resolve, reject) => {
+  incrementAsync({ commit }) {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        commit('increment')
-        resolve()
-      }, 1000)
-    })
-  }
-}
+        commit('increment');
+        resolve();
+      }, 1000);
+    });
+  },
+};
 
 const getters = {
-  evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd',
-  count: state => state.count
-}
+  evenOrOdd(state) {
+    return state.count % 2 === 0 ? 'even' : 'odd';
+  },
+  count: state => state.count,
+};
 
 export default {
-    namespaced: true,
-  state,
+  namespaced: true,
+  state: initialState,
   getters,
   actions,
-  mutations
+  mutations,
 };

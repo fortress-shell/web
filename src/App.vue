@@ -1,23 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/vikings/svg/skull.svg" width="200">
-    <router-view/>
+    <fs-header></fs-header>
+    <router-view></router-view>
+    <fs-footer></fs-footer>
   </div>
 </template>
 
 <script>
+import FooterComponent from '@/components/shell/footer-component';
+import HeaderComponent from '@/components/shell/header-component';
+
 export default {
-  name: 'App',
+  components: {
+    'footer-component': FooterComponent,
+    'header-component': HeaderComponent,
+  },
 };
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
+  padding: 0;
 }
 </style>
