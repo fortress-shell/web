@@ -7,6 +7,7 @@ import BuildPage from '@/components/builds/build-page';
 import MaintenancePage from '@/components/maintenance/maintenance-page';
 import BuildsPage from '@/components/builds/builds-page';
 import ProjectSettingsPage from '@/components/settings/project-settings-page';
+import DashboardPage from '@/components/dashboard/dashboard-page';
 import {
   onMaintenanceRedirectToMaintenancePage,
   onUnauthorizedRedirectToPageNotFound,
@@ -19,38 +20,42 @@ export default [
     beforeEnter: onMaintenanceRedirectToMaintenancePage,
   },
   {
-    path: '/oauth',
+    path: '/dashboard',
+    component: DashboardPage,
+    beforeEnter: onUnauthorizedRedirectToPageNotFound,
+    children: [
+      {
+        path: '/projects',
+        component: ProjectsPage,
+      },
+      {
+        path: '/project/:project_id',
+        component: ProjectPage,
+        children: [
+          {
+            path: '',
+            component: BuildsPage,
+          },
+          {
+            path: 'settings',
+            component: ProjectSettingsPage,
+          },
+        ],
+      },
+      {
+        path: '/project/:project_id/build/:build_id',
+        component: BuildPage,
+      },
+    ],
+  },
+  {
+    path: '/login',
     component: OAuthPage,
     beforeEnter: onMaintenanceRedirectToMaintenancePage,
   },
   {
     path: '/maintenance',
     component: MaintenancePage,
-  },
-  {
-    path: '/projects',
-    component: ProjectsPage,
-    beforeEnter: onUnauthorizedRedirectToPageNotFound,
-  },
-  {
-    path: '/project/:project_id',
-    component: ProjectPage,
-    beforeEnter: onUnauthorizedRedirectToPageNotFound,
-    children: [
-      {
-        path: '',
-        component: BuildsPage,
-      },
-      {
-        path: 'settings',
-        component: ProjectSettingsPage,
-      },
-    ],
-  },
-  {
-    path: '/project/:project_id/build/:build_id',
-    component: BuildPage,
-    beforeEnter: onUnauthorizedRedirectToPageNotFound,
   },
   {
     path: '*',

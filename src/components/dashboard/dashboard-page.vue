@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="dashboard-page">
     <router-view></router-view>
   </div>
 </template>
@@ -10,8 +10,4 @@ export default {
 </script>
 
 <style>
-#app {
-  margin: 0;
-  padding: 0;
-}
 </style>
