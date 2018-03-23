@@ -1,4 +1,4 @@
-const initialState = {
+const initialState = window.SESSION_LOADED || {
   count: 0,
 };
 

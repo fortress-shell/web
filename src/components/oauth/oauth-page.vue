@@ -1,7 +1,7 @@
 <template>
-    <footer>
-    footer
-  </footer>
+  <div id="oauth-page">
+
+  </div>
 </template>
 
 <script>

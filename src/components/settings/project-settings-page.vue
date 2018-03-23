@@ -1,7 +1,7 @@
 <template>
-    <footer>
-    footer
-  </footer>
+  <div id="project-settings-page">
+    Project Settings Page
+  </div>
 </template>
 
 <script>

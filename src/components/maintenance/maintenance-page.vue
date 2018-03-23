@@ -1,6 +1,6 @@
 <template>
-  <div id="landing-page">
-    Landing Page
+  <div id="maintenance">
+    Maintanance
   </div>
 </template>
 

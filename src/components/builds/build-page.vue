@@ -1,7 +1,7 @@
 <template>
-    <footer>
-    footer
-  </footer>
+  <div id="build-page">
+    Build Page
+  </div>
 </template>
 
 <script>

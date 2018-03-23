@@ -1,8 +1,8 @@
 <template>
-    <footer>
-    footer
+  <div id="project-page">
+    Project Page
     <router-view></router-view>
-  </footer>
+  </div>
 </template>
 
 <script>

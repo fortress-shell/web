@@ -6,19 +6,23 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="/static/vikings/svg/shield.svg"/>
+      href="/static/vikings/svg/shield.svg"
+    />
     <title>Fortress Shell</title>
     <!-- Prefetch DNS for external assets -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <!-- <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//www.google-analytics.com">
     <link rel="dns-prefetch" href="//www.fortress.sh">
     <link rel="dns-prefetch" href="//cloud.fortress.sh">
     <link rel="dns-prefetch" href="//api.fortress.sh">
     <link rel="dns-prefetch" href="//support.fortress.sh">
-    <link rel="dns-prefetch" href="//localhost">
+    <link rel="dns-prefetch" href="//localhost"> -->
   </head>
   <body>
     <div id="app"></div>
+    <script
+      src="<%- process.env.SESSION %>"
+      onload="SESSION_SCRIPT_LOADED = true"></script>
     <!-- built files will be auto injected -->
   </body>
 </html>

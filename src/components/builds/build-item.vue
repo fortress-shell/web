@@ -1,7 +1,7 @@
 <template>
-    <footer>
-    footer
-  </footer>
+  <article>
+    Build Item
+  </article>
 </template>
 
 <script>

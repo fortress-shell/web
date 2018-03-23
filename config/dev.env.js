@@ -5,5 +5,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  SCRIPT: '"http://localhost:3000/posts/script"',
+  SESSION: '"http://localhost:3000/posts/script"',
 })

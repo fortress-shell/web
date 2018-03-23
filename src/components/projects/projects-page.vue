@@ -1,7 +1,10 @@
 <template>
-    <footer>
-    footer
-  </footer>
+  <div id="projects-page">
+    Projects Page
+    <ul>
+      <li>Item</li>
+    </ul>
+  </div>
 </template>
 
 <script>
