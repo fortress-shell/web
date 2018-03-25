@@ -6,8 +6,8 @@ import ProjectsPage from '@/components/projects/projects-page';
 import BuildPage from '@/components/builds/build-page';
 import MaintenancePage from '@/components/maintenance/maintenance-page';
 import BuildsPage from '@/components/builds/builds-page';
-import ProjectSettingsPage from '@/components/settings/project-settings-page';
 import DashboardPage from '@/components/dashboard/dashboard-page';
+import SubscriptionsPage from '@/components/subscriptions/subscriptions-page';
 import {
   onMaintenanceRedirectToMaintenancePage,
   onUnauthorizedRedirectToPageNotFound,
@@ -29,16 +29,16 @@ export default [
         component: ProjectsPage,
       },
       {
+        path: '/subscriptions',
+        component: SubscriptionsPage,
+      },
+      {
         path: '/project/:project_id',
         component: ProjectPage,
         children: [
           {
             path: '',
             component: BuildsPage,
-          },
-          {
-            path: 'settings',
-            component: ProjectSettingsPage,
           },
         ],
       },
@@ -54,12 +54,12 @@ export default [
     beforeEnter: onMaintenanceRedirectToMaintenancePage,
   },
   {
-    path: '/maintenance',
-    component: MaintenancePage,
-  },
-  {
     path: '*',
     component: PageNotFound,
     beforeEnter: onMaintenanceRedirectToMaintenancePage,
+  },
+  {
+    path: '/maintenance',
+    component: MaintenancePage,
   },
 ];

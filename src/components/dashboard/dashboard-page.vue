@@ -6,6 +6,12 @@
 
 <script>
 export default {
+  beforeMount() {
+    this.$store.dispatch('socket/connect');
+  },
+  beforeDestroy() {
+    this.$store.dispatch('socket/disconnect');
+  },
 };
 </script>
 

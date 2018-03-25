@@ -1,6 +1,6 @@
 <template>
-  <div id="project-settings-page">
-    Project Settings Page
+  <div id="subscriptions-page">
+    Subscriptions Page
   </div>
 </template>
 
