@@ -1,29 +1,78 @@
-import io from 'socket.io-client';
+import router from '@/router';
+import HTTP from '@/api';
+import Promise from 'bluebird';
 
-const SOCKET_URL = process.env.SOCKET_URL;
-const SOCKET_PATH = process.env.SOCKET_PATH;
+const PRESTART_WAIT = 1750;
+const LOGOUT = 'LOGOUT';
+const LOGOUT_SUCCESS = 'LOGOUT_COMPLETE';
+const LOGOUT_FAILURE = 'LOGOUT_FAILED';
+const EXCHANGE_CODE_FOR_TOKEN = 'EXCHANGE_CODE_FOR_TOKEN';
+const EXCHANGE_CODE_FOR_TOKEN_SUCCESS = 'EXCHANGE_CODE_FOR_TOKEN_SUCCESS';
+const EXCHANGE_CODE_FOR_TOKEN_FAILURE = 'EXCHANGE_CODE_FOR_TOKEN_FAILURE';
 
 const initialState = {
-  connection: null,
+  isMaintanance: !window.SESSION_SCRIPT_LOADED,
+  isAuthenticated: window.SESSION,
+  isLogoutLoading: false,
+  isLogoutError: false,
+  logoutError: null,
+  isExchangeCodeForTokenLoading: false,
+  isExchangeCodeForTokenError: false,
+  exchangeCodeForTokenError: null,
 };
 
 const mutations = {
-  connect(state) {
-    if (!state.connection) {
-      state.connection = io(SOCKET_URL, {
-        path: SOCKET_PATH,
-      });
-    }
+  [LOGOUT](state) {
+    state.isLogoutLoading = true;
+    state.isLogoutError = false;
   },
-  disconnect(state) {
-    state.connection.disconnect();
-    state.connection = null;
+  [LOGOUT_SUCCESS](state) {
+    state.isLogoutLoading = false;
+    state.isLogoutError = false;
+    state.isAuthenticated = false;
+  },
+  [LOGOUT_FAILURE](state, error) {
+    state.isLogoutLoading = false;
+    state.isLogoutError = true;
+    state.logoutError = error;
+  },
+  [EXCHANGE_CODE_FOR_TOKEN](state) {
+    state.isExchangeCodeForTokenLoading = true;
+    state.isExchangeCodeForTokenError = false;
+    state.isAuthenticated = false;
+  },
+  [EXCHANGE_CODE_FOR_TOKEN_SUCCESS](state) {
+    state.isExchangeCodeForTokenLoading = false;
+    state.isExchangeCodeForTokenError = false;
+    state.isAuthenticated = true;
+  },
+  [EXCHANGE_CODE_FOR_TOKEN_FAILURE](state, error) {
+    state.isExchangeCodeForTokenLoading = false;
+    state.isExchangeCodeForTokenError = true;
+    state.isAuthenticated = false;
+    state.exchangeCodeForTokenError = error;
   },
 };
 
 const actions = {
-  connect: ({ commit }) => commit('connect'),
-  disconnect: ({ commit }) => commit('disconnect'),
+  logout({ commit }) {
+    commit(LOGOUT);
+    return HTTP.post('/v1/sessions/logout')
+      .then(() => commit(LOGOUT_SUCCESS))
+      .catch(error => commit(LOGOUT_FAILURE, error));
+  },
+  oauth() {
+    window.location = process.env.GITHUB_OAUTH;
+  },
+  exchangeCodeForToken({ commit }, code) {
+    commit(EXCHANGE_CODE_FOR_TOKEN);
+    const authenticate = HTTP.post('/v1/sessions', { body: { code } });
+    const waitIfTooFast = Promise.delay(PRESTART_WAIT);
+    return Promise.all([authenticate, waitIfTooFast])
+      .then(() => commit(EXCHANGE_CODE_FOR_TOKEN_SUCCESS))
+      .then(() => router.push('/dashboard'))
+      .catch(error => commit(EXCHANGE_CODE_FOR_TOKEN_FAILURE, error));
+  },
 };
 
 export default {

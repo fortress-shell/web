@@ -1,6 +1,6 @@
 <template>
   <div id="page-not-found">
-    Page Not Found
+    Page {{ $route.path }} Not Found
   </div>
 </template>
 

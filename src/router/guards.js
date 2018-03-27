@@ -1,12 +1,14 @@
+import store from '@/store';
+
 /**
- * [onMaintenanceRedirectToMaintenancePage description]
- * @param  {[type]}   from [description]
- * @param  {[type]}   to   [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
+ * If maintenance active or smth bad happens on server
+ * redirect to maintenance page
+ * @param  {Route}   from source route
+ * @param  {Route}   to   target route
+ * @param  {Function} next callback to pass to target route
  */
 export function onMaintenanceRedirectToMaintenancePage(from, to, next) {
-  if (!window.SESSION_SCRIPT_LOADED) {
+  if (store.state.authentication.isMaintanance) {
     next('/maintenance');
   } else {
     next();
@@ -14,15 +16,54 @@ export function onMaintenanceRedirectToMaintenancePage(from, to, next) {
 }
 
 /**
- * [onMaintenanceRedirectToMaintenancePage description]
- * @param  {[type]}   from [description]
- * @param  {[type]}   to   [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
+ * On unautherized state redirect to page-not-found
+ * @param  {Route}   from source route
+ * @param  {Route}   to   target route
+ * @param  {Function} next callback to pass to target route
  */
 export function onUnauthorizedRedirectToPageNotFound(from, to, next) {
-  if (!window.SESSION) {
-    next('/page-not-found');
+  if (store.state.authentication.isAuthenticated) {
+    next();
+  } else {
+    next({
+      path: '/page-not-found',
+      replace: true,
+    });
+  }
+}
+
+/**
+ * If maintenance is not set anymore redirect to landing page
+ * @param  {Route}   from source route
+ * @param  {Route}   to   target route
+ * @param  {Function} next callback to pass to target route
+ */
+export function onMaintenanceCompleteRedirectToHomePage(from, to, next) {
+  if (store.state.authentication.isMaintanance) {
+    next();
+  } else {
+    next({
+      path: '/',
+      replace: true,
+    });
+  }
+}
+
+/**
+ * If access code exists exchange it and go to dashboard
+ * @param  {Route}   from source route
+ * @param  {Route}   to   target route
+ * @param  {Function} next callback to pass to target route
+ */
+export function onOAuthLogin(source, target, next) {
+  if (store.state.authentication.isMaintanance) {
+    next('/maintenance');
+  } else if (source.query.code) {
+    store.dispatch('authentication/exchangeCodeForToken', source.query.code);
+    next({
+      path: '/',
+      replace: true,
+    });
   } else {
     next();
   }

@@ -1,5 +1,4 @@
 import PageNotFound from '@/components/etc/page-not-found';
-import OAuthPage from '@/components/oauth/oauth-page';
 import LandingPage from '@/components/landing/landing-page';
 import ProjectPage from '@/components/projects/project-page';
 import ProjectsPage from '@/components/projects/projects-page';
@@ -11,13 +10,15 @@ import SubscriptionsPage from '@/components/subscriptions/subscriptions-page';
 import {
   onMaintenanceRedirectToMaintenancePage,
   onUnauthorizedRedirectToPageNotFound,
+  onMaintenanceCompleteRedirectToHomePage,
+  onOAuthLogin,
 } from './guards';
 
 export default [
   {
     path: '/',
     component: LandingPage,
-    beforeEnter: onMaintenanceRedirectToMaintenancePage,
+    beforeEnter: onOAuthLogin,
   },
   {
     path: '/dashboard',
@@ -49,11 +50,6 @@ export default [
     ],
   },
   {
-    path: '/login',
-    component: OAuthPage,
-    beforeEnter: onMaintenanceRedirectToMaintenancePage,
-  },
-  {
     path: '*',
     component: PageNotFound,
     beforeEnter: onMaintenanceRedirectToMaintenancePage,
@@ -61,5 +57,6 @@ export default [
   {
     path: '/maintenance',
     component: MaintenancePage,
+    beforeEnter: onMaintenanceCompleteRedirectToHomePage,
   },
 ];

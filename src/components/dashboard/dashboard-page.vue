@@ -1,15 +1,16 @@
 <template>
   <div id="dashboard-page">
+    Dashboard
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  beforeMount() {
+  mounted() {
     this.$store.dispatch('socket/connect');
   },
-  beforeDestroy() {
+  destroy() {
     this.$store.dispatch('socket/disconnect');
   },
 };
