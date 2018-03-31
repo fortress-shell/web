@@ -17,11 +17,14 @@
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "bulma": "^0.6.2",
+    "bulma-pricingtable": "^1.0.0",
+    "bulma-switch": "^1.0.1",
+    "bulma-timeline": "^2.0.1",
+    "font-awesome": "^4.7.0",
     "moment": "^2.21.0",
     "socket.io-client": "^2.0.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "font-awesome": "^4.7.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

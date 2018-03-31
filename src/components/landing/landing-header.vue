@@ -5,7 +5,7 @@
         <img
           src="/static/shield.svg"
           alt="Fortress Shell"
-          height="60" width="40"><strong>FORTRESS SHELL</strong>
+          height="60" width="40"><strong class="fsh-brand">FORTRESS SHELL</strong>
       </a>
       <div class="navbar-burger">
         <span></span>
@@ -15,20 +15,33 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
+        <router-link class="navbar-item" to="/" exact active-class="is-active-item">
           Home
-        </a>
-        <a class="navbar-item">
+        </router-link>
+        <router-link class="navbar-item" to="/blog" disabled exact active-class="is-active-item">
           Blog
-        </a>
-        <a class="navbar-item">
+        </router-link>
+        <router-link disabled class="navbar-item" to="/pricing" exact active-class="is-active-item">
           Pricing
-        </a>
+        </router-link>
+        <router-link class="navbar-item" to="/status" disabled active-class="is-active-item">
+          Status
+        </router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
+          <router-link
+            v-if="isAuthenticated"
+            class="button is-success"
+            to="/dashboard">
+            <span class="icon">
+              <i class="fa fa-sign-in"></i>
+            </span>
+            <span>Go to app</span>
+          </router-link>
           <button
-            class="button is-primary"
+            v-else
+            class="button is-success"
             v-on:click="oauth"
             v-bind:class="loginButtonClasses">
             <span>Sign in with Github</span>
@@ -36,7 +49,6 @@
               <i class="fa fa-github"></i>
             </span>
           </button>
-
         </div>
       </div>
     </div>
@@ -49,11 +61,8 @@ import { mapActions, mapState } from 'vuex';
 export default {
   computed: {
     ...mapState('authentication', [
-      'isMaintanance',
       'isAuthenticated',
       'isExchangeCodeForTokenLoading',
-      'isExchangeCodeForTokenError',
-      'exchangeCodeForTokenError',
     ]),
     loginButtonClasses() {
       return {
@@ -68,6 +77,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

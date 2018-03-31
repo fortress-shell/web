@@ -1,6 +1,9 @@
 <template>
   <div id="landing-page">
     <landing-header></landing-header>
+    <slogan></slogan>
+    <sign-up></sign-up>
+    <timeline></timeline>
     <landing-footer></landing-footer>
   </div>
 </template>
@@ -9,11 +12,17 @@
 import { mapActions, mapState } from 'vuex';
 import LandingFooter from './landing-footer';
 import LandingHeader from './landing-header';
+import Timeline from './timeline';
+import Slogan from './slogan';
+import SignUp from './sign-up';
 
 export default {
   components: {
+    slogan: Slogan,
+    timeline: Timeline,
     'landing-footer': LandingFooter,
     'landing-header': LandingHeader,
+    'sign-up': SignUp,
   },
   computed: {
     ...mapState('authentication', [
@@ -36,6 +45,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

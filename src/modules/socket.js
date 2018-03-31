@@ -6,38 +6,44 @@ const CONNECT = 'CONNECT';
 const DISCONNECT = 'DISCONNECT';
 
 const initialState = {
-  connection: null,
+  socket: { connection: null },
 };
 
 const mutations = {
   [CONNECT](state, connection) {
-    state.connection = Object.freeze(connection);
+    state.socket = Object.freeze({ connection });
   },
   [DISCONNECT](state) {
-    state.connection = null;
+    state.socket = { connection: null };
   },
 };
 
 const actions = {
   connect({ commit, state }) {
-    if (!state.connection) {
+    if (!state.socket.connection) {
       const connection = io(SOCKET_URL, {
         path: SOCKET_PATH,
+        transports: ['websocket'],
       });
       commit(CONNECT, connection);
     }
   },
   disconnect({ commit, state }) {
-    if (state.connection) {
-      state.connection.disconnect();
+    if (state.socket.connection) {
+      state.socket.connection.disconnect();
       commit(DISCONNECT);
     }
   },
+};
+
+const getters = {
+  connection: state => state.socket.connection,
 };
 
 export default {
   namespaced: true,
   state: initialState,
   actions,
+  getters,
   mutations,
 };

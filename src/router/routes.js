@@ -3,7 +3,7 @@ import LandingPage from '@/components/landing/landing-page';
 import ProjectPage from '@/components/projects/project-page';
 import ProjectsPage from '@/components/projects/projects-page';
 import BuildPage from '@/components/builds/build-page';
-import MaintenancePage from '@/components/maintenance/maintenance-page';
+import MaintenancePage from '@/components/etc/maintenance-page';
 import BuildsPage from '@/components/builds/builds-page';
 import DashboardPage from '@/components/dashboard/dashboard-page';
 import SubscriptionsPage from '@/components/subscriptions/subscriptions-page';
@@ -26,26 +26,27 @@ export default [
     beforeEnter: onUnauthorizedRedirectToPageNotFound,
     children: [
       {
-        path: '/projects',
+        path: '',
         component: ProjectsPage,
       },
       {
-        path: '/subscriptions',
+        path: 'subscriptions',
         component: SubscriptionsPage,
       },
       {
-        path: '/project/:project_id',
+        path: 'projects/:project_id',
         component: ProjectPage,
         children: [
           {
             path: '',
+            name: 'project',
             component: BuildsPage,
           },
+          {
+            path: 'builds/:build_id',
+            component: BuildPage,
+          },
         ],
-      },
-      {
-        path: '/project/:project_id/build/:build_id',
-        component: BuildPage,
       },
     ],
   },

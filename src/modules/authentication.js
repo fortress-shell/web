@@ -12,7 +12,7 @@ const EXCHANGE_CODE_FOR_TOKEN_FAILURE = 'EXCHANGE_CODE_FOR_TOKEN_FAILURE';
 
 const initialState = {
   isMaintanance: !window.SESSION_SCRIPT_LOADED,
-  isAuthenticated: window.SESSION,
+  isAuthenticated: window.SESSION_STATE,
   isLogoutLoading: false,
   isLogoutError: false,
   logoutError: null,
@@ -59,6 +59,7 @@ const actions = {
     commit(LOGOUT);
     return HTTP.post('/v1/sessions/logout')
       .then(() => commit(LOGOUT_SUCCESS))
+      .then(() => router.push('/'))
       .catch(error => commit(LOGOUT_FAILURE, error));
   },
   oauth() {
@@ -66,7 +67,7 @@ const actions = {
   },
   exchangeCodeForToken({ commit }, code) {
     commit(EXCHANGE_CODE_FOR_TOKEN);
-    const authenticate = HTTP.post('/v1/sessions', { body: { code } });
+    const authenticate = HTTP.post('/v1/sessions', { code });
     const waitIfTooFast = Promise.delay(PRESTART_WAIT);
     return Promise.all([authenticate, waitIfTooFast])
       .then(() => commit(EXCHANGE_CODE_FOR_TOKEN_SUCCESS))

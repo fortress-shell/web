@@ -1,20 +1,30 @@
 <template>
   <div id="dashboard-page">
-    Dashboard
+    <dashboard-header></dashboard-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import DashboardHeader from './dashboard-header';
+
 export default {
-  mounted() {
-    this.$store.dispatch('socket/connect');
+  components: {
+    'dashboard-header': DashboardHeader,
   },
-  destroy() {
-    this.$store.dispatch('socket/disconnect');
+  methods: {
+    ...mapActions('socket', [
+      'connect',
+      'disconnect',
+    ]),
+  },
+  created() {
+    this.connect();
+  },
+  destroyed() {
+    this.disconnect();
   },
 };
 </script>
 
-<style>
-</style>
