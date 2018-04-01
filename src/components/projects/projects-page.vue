@@ -9,9 +9,8 @@
             <project-item
               :id="project.id"
               :name="project.name"
-              :status="project.status"
               :owner="project.owner"
-              :last="project.last"
+              :builds="project.builds"
               ></project-item>
           </div>
         </div>

@@ -43,7 +43,8 @@ export default [
             component: BuildsPage,
           },
           {
-            path: 'builds/:build_id',
+            path: 'builds/:id',
+            name: 'build',
             component: BuildPage,
           },
         ],

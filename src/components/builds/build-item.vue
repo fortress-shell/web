@@ -1,9 +1,11 @@
 <template>
-  <router-link to="/dashboard" class="box">
+  <router-link
+    :to="{ name: 'build', params: { id: id } }"
+    class="box">
     <article class="media">
         <div class="media-left">
           <figure class="image is-64x64">
-            <!-- <img v-if="status == 'success'"
+            <img v-if="status == 'success'"
               src="/static/success.svg" alt="Image">
             <img v-else-if="status == 'failure'"
               src="/static/success.svg" alt="Image">
@@ -12,7 +14,7 @@
             <img v-else-if="status == 'maintenance'"
               src="/static/success.svg" alt="Image">
             <img v-else
-              src="/static/new.svg" alt="Image"> -->
+              src="/static/new.svg" alt="Image">
           </figure>
         </div>
         <div class="media-content">
@@ -32,6 +34,10 @@
 
 <script>
 export default {
+  props: {
+    status: String,
+    id: Number,
+  },
 };
 </script>
 

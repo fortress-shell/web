@@ -33,8 +33,7 @@ const mutations = {
   [UPDATE_PROJECT_BY_ID](state, payload) {
     const findById = project => project.id === payload.project_id;
     const i = state.projects.findIndex(findById);
-    state.projects[i].last = payload.name;
-    state.projects[i].status = payload.status;
+    state.projects[i].builds.push(payload);
   },
 };
 

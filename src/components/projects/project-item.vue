@@ -5,17 +5,20 @@
     class="box">
     <article class="media">
       <div class="media-left">
-        <figure class="image is-64x64">
-          <img v-if="status == 'success'"
+        <figure class="image is-64x64" v-if="last">
+          <img v-if="last.status == 'success'"
             src="/static/success.svg" alt="Image">
-          <img v-else-if="status == 'failure'"
+          <img v-else-if="last.status == 'failure'"
             src="/static/success.svg" alt="Image">
-          <img v-else-if="status == 'running'"
+          <img v-else-if="last.status == 'running'"
             src="/static/success.svg" alt="Image">
-          <img v-else-if="status == 'maintenance'"
+          <img v-else-if="last.status == 'maintenance'"
             src="/static/success.svg" alt="Image">
-          <img v-else
-            src="/static/new.svg" alt="Image">
+            <img v-else-if="last.status=='created'"
+              src="/static/new.svg" alt="Image">
+        </figure>
+        <figure class="image is-64x64" v-else>
+          <img src="/static/new.svg" alt="Image">
         </figure>
       </div>
       <div class="media-content">
@@ -25,7 +28,7 @@
             <br>
             <small>{{ owner }}</small>
             <br>
-            <small v-if="last">{{ last }}</small>
+            <small v-if="last">{{ last.updated_at }}</small>
             <small v-else>Has no builds</small>
           </p>
         </div>
@@ -37,10 +40,14 @@
 export default {
   props: {
     name: String,
-    last: String,
-    status: String,
+    builds: Array,
     owner: String,
     id: Number,
+  },
+  computed: {
+    last() {
+      return this.builds[this.builds.length - 1];
+    },
   },
 };
 </script>
