@@ -59,9 +59,29 @@ export default {
     ...mapState('authentication', [
       'isLogoutLoading',
     ]),
+    ...mapState('subscriptions', {
+      isSubscriptionsLoading: 'isLoading',
+    }),
+    ...mapState('projects', {
+      isProjectsLoading: 'isLoading',
+    }),
+    ...mapState('project', {
+      isProjectLoading: 'isLoading',
+    }),
+    ...mapState('builds', {
+      isBuildsLoading: 'isLoading',
+    }),
+    ...mapState('build', {
+      isBuildLoading: 'isLoading',
+    }),
     isLogoutLoadingClass() {
       return {
-        'is-loading': this.isLogoutLoading,
+        'is-loading': this.isLogoutLoading ||
+          this.isProjectsLoading ||
+          this.isSubscriptionsLoading ||
+          this.isBuildsLoading ||
+          this.isBuildLoading ||
+          this.isProjectLoading,
       };
     },
   },

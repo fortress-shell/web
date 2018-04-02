@@ -1,35 +1,9 @@
 <template>
   <div id="app" class="is-marginless is-paddingless">
     <router-view></router-view>
-    <section v-if="isLoading" class="hero is-fullheight" id="fsh-loading">
-    </section>
   </div>
 </template>
-
-<script>
-import { mapGetters } from 'vuex';
-
-export default {
-  computed: {
-    ...mapGetters('ui', {
-      isLoading: 'isLoading',
-    }),
-  },
-};
-</script>
-
 <style lang="scss">
-#fsh-loading {
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  position: absolute; left: 0;
-  top: 0;
-  background-image: url(/static/running.svg);
-  background-size: 300px 300px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 
 html, body {
   height: 100%;

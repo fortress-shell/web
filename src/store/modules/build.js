@@ -58,9 +58,13 @@ const actions = {
   },
 };
 
+const sortByPosition = (a, b) => a.position - b.position;
+
 const getters = {
   logs(state) {
-    return state.logs.reduce((a, c) => a + c.content, '');
+    return state.logs.concat()
+      .sort(sortByPosition)
+      .reduce((a, c) => a + c.content, '');
   },
 };
 

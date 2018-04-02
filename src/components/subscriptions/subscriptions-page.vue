@@ -2,7 +2,7 @@
 <div id="subscriptions-page" class="section">
   <div class="columns is-mobile is-centered" v-if="!isLoading">
     <div class="column is-half-desktop is-narrow">
-      <table class="table is-fullwidth is-hoverable">
+      <table class="table is-fullwidth">
         <thead>
           <tr>
             <th>Organization</th>
@@ -22,7 +22,8 @@
             </td>
             <checkbox
               :subscribed="subscription.subscribed"
-              :id="subscription.id">
+              :id="subscription.id"
+              :isLoading="subscription.isLoading">
               </checkbox>
           </tr>
         </tbody>
@@ -42,7 +43,7 @@
 </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import Checkbox from './checkbox';
 
 export default {
@@ -50,17 +51,15 @@ export default {
     checkbox: Checkbox,
   },
   created() {
-    this.prefetch();
+    this.source = this.prefetch();
   },
   destroyed() {
-    // cancel http request
+    // this.source.cancel();
   },
   computed: {
-    ...mapGetters('ui', [
-      'isLoading',
-    ]),
     ...mapState('subscriptions', [
       'subscriptions',
+      'isLoading',
     ]),
   },
   methods: {

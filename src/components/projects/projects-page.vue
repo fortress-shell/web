@@ -1,5 +1,5 @@
 <template>
-  <div id="projects-page">
+  <div id="projects-page" v-if="!isLoading">
     <section v-if="projects.length" class="section">
       <div class="container is-fluid">
         <div class="columns is-multiline is-mobile">
@@ -10,7 +10,6 @@
               :id="project.id"
               :name="project.name"
               :owner="project.owner"
-              :builds="project.builds"
               ></project-item>
           </div>
         </div>
@@ -37,29 +36,25 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import ProjectItem from './project-item';
 
 export default {
   created() {
-    this.prefetch();
-    this.connection.on('builds:new', this.update.bind(this));
+    this.source = this.prefetch();
   },
   destroyed() {
-    this.connection.off('builds:new');
+    // this.source.cancel();
   },
   computed: {
     ...mapState('projects', [
       'projects',
-    ]),
-    ...mapGetters('socket', [
-      'connection',
+      'isLoading',
     ]),
   },
   methods: {
     ...mapActions('projects', [
       'prefetch',
-      'update',
     ]),
   },
   components: {

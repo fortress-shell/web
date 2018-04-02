@@ -1,14 +1,8 @@
 <template>
   <div id="build-page">
     <br>
-    <div class="content" v-if="logs">
-      <blockquote>Status: CREATED</blockquote>
-      <br>
-      <pre>{{ logs }}</pre>
-    </div>
-    <div class="content" v-else>
-      <br>
-      <pre>Vm not started yet</pre>
+    <div class="content">
+      <pre :class="buildStatusClassName">{{ logs || '...' }}</pre>
     </div>
   </div>
 </template>
@@ -23,18 +17,14 @@ export default {
       projectId,
       buildId,
     });
-    this.LOG_EVENT = '';
-    this.BUILD_UPDATE = '';
-    this.connection.on(this.LOG_EVENT, (payload) => {
-      this.log(payload);
-    });
-    this.connection.on(this.BUILD_UPDATE, (payload) => {
-      this.update(payload);
-    });
+    this.updateBuildEvent = `builds:${buildId}:update`;
+    this.newLogEvent = `logs:${buildId}:new`;
+    this.connection.on(this.newLogEvent, this.log.bind(this));
+    this.connection.on(this.updateBuildEvent, this.update.bind(this));
   },
   destroyed() {
-    this.connection.off(this.LOG_EVENT);
-    this.connection.off(this.BUILD_UPDATE);
+    this.connection.off(this.newLogEvent);
+    this.connection.off(this.updateBuildEvent);
   },
   computed: {
     ...mapGetters('socket', [
@@ -46,6 +36,14 @@ export default {
     ...mapGetters('build', [
       'logs',
     ]),
+    buildStatusClassName() {
+      return {
+        'fsh-build-success': this.status === 'success',
+        'fsh-build-failure': ['failure', 'maintenance'].includes(this.status),
+        'fsh-build-primary': ['created', 'scheduled'].includes(this.status),
+        'fsh-build-running': this.status === 'running',
+      };
+    },
   },
   methods: {
     ...mapActions('build', [
@@ -56,3 +54,17 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .fsh-build-success {
+    border-top: 5px solid #3db39e;
+  }
+  .fsh-build-failure {
+    border-top: 5px solid #f05f60;
+  }
+  .fsh-build-primary {
+    border-top: 5px solid #9c9c9c;
+  }
+  .fsh-build-running {
+    border-top: 5px solid #8080f2;
+  }
+</style>

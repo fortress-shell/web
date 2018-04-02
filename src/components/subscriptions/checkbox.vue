@@ -1,11 +1,12 @@
 <template>
   <td class="is-centered">
       <div class="field" >
-          <button
-            class="button is-outlined is-fullwidth" :class="buttonClasses"
-            @click="toggle(id)">
+          <a
+            class="button is-outlined is-fullwidth"
+            :class="buttonClasses"
+            @click.prevent="toggle(id)">
             {{ subscribeAction }}
-          </button>
+          </a>
       </div>
   </td>
 </template>
@@ -16,6 +17,7 @@ export default {
   props: {
     id: Number,
     subscribed: Boolean,
+    isLoading: Boolean,
   },
   computed: {
     isSubscribed() {
@@ -28,6 +30,7 @@ export default {
       return {
         'is-danger': this.subscribed,
         'is-success': !this.subscribed,
+        'is-loading': this.isLoading,
       };
     },
   },

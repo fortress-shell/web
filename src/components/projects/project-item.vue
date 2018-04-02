@@ -5,20 +5,8 @@
     class="box">
     <article class="media">
       <div class="media-left">
-        <figure class="image is-64x64" v-if="last">
-          <img v-if="last.status == 'success'"
-            src="/static/success.svg" alt="Image">
-          <img v-else-if="last.status == 'failure'"
-            src="/static/success.svg" alt="Image">
-          <img v-else-if="last.status == 'running'"
-            src="/static/success.svg" alt="Image">
-          <img v-else-if="last.status == 'maintenance'"
-            src="/static/success.svg" alt="Image">
-            <img v-else-if="last.status=='created'"
-              src="/static/new.svg" alt="Image">
-        </figure>
-        <figure class="image is-64x64" v-else>
-          <img src="/static/new.svg" alt="Image">
+        <figure class="image is-64x64">
+            <img src="/static/viking-ship.svg" alt="Image">
         </figure>
       </div>
       <div class="media-content">
@@ -27,9 +15,6 @@
             <strong>{{ name }}</strong>
             <br>
             <small>{{ owner }}</small>
-            <br>
-            <small v-if="last">{{ last.updated_at }}</small>
-            <small v-else>Has no builds</small>
           </p>
         </div>
       </div>
@@ -37,6 +22,8 @@
   </router-link>
 </template>
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     name: String,
@@ -45,6 +32,9 @@ export default {
     id: Number,
   },
   computed: {
+    ...mapGetters('socket', [
+      'connection',
+    ]),
     last() {
       return this.builds[this.builds.length - 1];
     },

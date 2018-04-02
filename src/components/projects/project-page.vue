@@ -1,5 +1,5 @@
 <template>
-  <div id="project-page" class="container" v-if="project">
+  <div id="project-page" class="container" v-if="!isLoading">
     <section class="section">
       <article class="container">
         <div>
@@ -16,12 +16,15 @@ import { mapState, mapActions } from 'vuex';
 
 export default {
   created() {
-    const projectId = this.$route.params.project_id;
-    this.prefetch(projectId);
+    this.source = this.prefetch(this.$route.params.project_id);
+  },
+  destroyed() {
+    // this.source.cancel();
   },
   computed: {
     ...mapState('project', [
       'project',
+      'isLoading',
     ]),
   },
   methods: {
