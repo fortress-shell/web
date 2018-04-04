@@ -1,5 +1,5 @@
 <template>
-  <div id="builds-page">
+  <div id="builds-page" v-if="!isLoading">
     <br>
     <div v-if="builds.length" class="columns is-multiline">
       <div class="column is-12"
@@ -9,6 +9,8 @@
           :id="build.id"
           :branch="build.branch"
           :status="build.status"
+          :createdAt="build.created_at"
+          :commit="build.commit"
           ></build-item>
       </div>
     </div>
@@ -37,6 +39,7 @@ export default {
   computed: {
     ...mapState('builds', [
       'builds',
+      'isLoading',
     ]),
     ...mapGetters('socket', [
       'connection',

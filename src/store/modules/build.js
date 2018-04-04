@@ -1,70 +1,53 @@
 import HTTP from '@/api';
 
 const initialState = {
-  logs: [],
-  status: null,
+  build: null,
+  status: 'created',
   isLoading: false,
   isError: false,
   error: null,
 };
 
-const PREFETCH = 'PREFETCH';
-const PREFETCH_SUCCESS = 'PREFETCH_SUCCESS';
-const PREFETCH_FAILURE = 'PREFETCH_FAILURE';
-const LOG = 'LOG';
-const UPDATE = 'UPDATE';
+const BUILD_PREFETCH = 'BUILD_PREFETCH';
+const BUILD_PREFETCH_SUCCESS = 'BUILD_PREFETCH_SUCCESS';
+const BUILD_PREFETCH_FAILURE = 'BUILD_PREFETCH_FAILURE';
+const UPDATE_BUILD = 'UPDATE_BUILD';
 
 const mutations = {
-  [PREFETCH](state) {
+  [BUILD_PREFETCH](state) {
     state.isLoading = true;
     state.isError = false;
     state.error = null;
-    state.logs = [];
-    state.status = 'created';
+    state.build = null;
   },
-  [PREFETCH_SUCCESS](state, build) {
+  [BUILD_PREFETCH_SUCCESS](state, build) {
     state.isLoading = false;
     state.isError = false;
     state.error = null;
-    state.logs = build.logs;
-    state.status = build.status;
+    state.build = build;
   },
-  [PREFETCH_FAILURE](state, error) {
+  [BUILD_PREFETCH_FAILURE](state, error) {
     state.isLoading = false;
     state.isError = true;
     state.error = error;
   },
-  [UPDATE](state, payload) {
+  [UPDATE_BUILD](state, payload) {
     state.status = payload.status;
-  },
-  [LOG](state, payload) {
-    state.logs.push(payload);
   },
 };
 
 const actions = {
-  prefetch({ commit }, { projectId, buildId }) {
-    commit(PREFETCH);
-    HTTP.get(`/v1/projects/${projectId}/builds/${buildId}/logs`)
-      .then(response => response.data.logs)
-      .then(logs => commit(PREFETCH_SUCCESS, logs))
-      .catch(error => commit(PREFETCH_FAILURE, error));
+  prefetch({ commit }, { projectId, id }) {
+    commit(BUILD_PREFETCH);
+    /* eslint-disable */
+    console.log('fuck');
+    HTTP.get(`/v1/projects/${projectId}/builds/${id}`)
+      .then(response => response.data.build)
+      .then(build => commit(BUILD_PREFETCH_SUCCESS, build))
+      .catch(error => commit(BUILD_PREFETCH_FAILURE, error));
   },
   update({ commit }, payload) {
-    commit(UPDATE, payload);
-  },
-  log({ commit }, payload) {
-    commit(LOG, payload);
-  },
-};
-
-const sortByPosition = (a, b) => a.position - b.position;
-
-const getters = {
-  logs(state) {
-    return state.logs.concat()
-      .sort(sortByPosition)
-      .reduce((a, c) => a + c.content, '');
+    commit(UPDATE_BUILD, payload);
   },
 };
 
@@ -73,5 +56,4 @@ export default {
   state: initialState,
   actions,
   mutations,
-  getters,
 };

@@ -32,7 +32,7 @@ const mutations = {
     state.builds = [];
   },
   [ADD_BUILD](state, build) {
-    state.builds.push(build);
+    state.builds.unshift(build);
   },
   [EDIT_BUILD](state, payload) {
     const findById = build => build.id === payload.id;

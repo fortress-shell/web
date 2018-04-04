@@ -5,17 +5,19 @@
     <article class="media">
         <div class="media-left">
           <figure class="image is-64x64">
-            <img v-if="status == 'success'"
+            <img v-if="status == 'successful'"
               src="/static/success.svg">
-            <img v-else-if="status == 'failure'"
+            <img v-else-if="status == 'failed'"
               src="/static/exclamation-mark.svg">
             <img v-else-if="status == 'running'"
               src="/static/running.svg">
-            <img v-else-if="status == 'maintenance'"
+            <img v-else-if="status == 'maintenanced'"
               src="/static/fence.svg">
             <img v-else-if="status == 'created'"
               src="/static/new.svg">
             <img v-else-if="status == 'scheduled'"
+              src="/static/queue.svg">
+            <img v-else-if="status == 'timeouted'"
               src="/static/scheduled.svg">
             <img v-else
               src="/static/fence.svg">
@@ -24,9 +26,9 @@
         <div class="media-content">
           <div class="content">
             <p class="fsh-elipsis">
-              <strong>{{ branch }}</strong>
+              <strong>{{ branch }} # {{ commit }} # {{ id }}</strong>
               <br>
-              <small>1 hour ago</small>
+              <small>{{ createdAtFromNow }}</small>
             </p>
           </div>
         </div>
@@ -35,6 +37,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import moment from 'moment';
 
 export default {
   created() {
@@ -45,6 +48,9 @@ export default {
   },
   computed: {
     ...mapGetters('socket', ['connection']),
+    createdAtFromNow() {
+      return moment(this.createdAt).fromNow();
+    },
   },
   methods: {
     ...mapActions('builds', ['update']),
@@ -53,6 +59,8 @@ export default {
     status: String,
     id: Number,
     branch: String,
+    createdAt: String,
+    commit: String,
   },
 };
 </script>

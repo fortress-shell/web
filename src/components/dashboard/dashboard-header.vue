@@ -74,6 +74,9 @@ export default {
     ...mapState('build', {
       isBuildLoading: 'isLoading',
     }),
+    ...mapState('log', {
+      isLogLoading: 'isLoading',
+    }),
     isLogoutLoadingClass() {
       return {
         'is-loading': this.isLogoutLoading ||
@@ -81,7 +84,8 @@ export default {
           this.isSubscriptionsLoading ||
           this.isBuildsLoading ||
           this.isBuildLoading ||
-          this.isProjectLoading,
+          this.isProjectLoading ||
+          this.isLogLoading,
       };
     },
   },
