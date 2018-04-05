@@ -31,10 +31,11 @@ export default {
     const projectId = this.$route.params.project_id;
     this.source = this.prefetch(projectId);
     this.newBuildEvent = `builds:${projectId}:new`;
-    this.connection.on(this.newBuildEvent, this.add.bind(this));
+    this.newBuildEventFn = this.add.bind(this);
+    this.connection.on(this.newBuildEvent, this.newBuildEventFn);
   },
   destroyed() {
-    this.connection.off(this.newBuildEvent);
+    this.connection.off(this.newBuildEvent, this.newBuildEventFn);
   },
   computed: {
     ...mapState('builds', [

@@ -2,7 +2,6 @@ import HTTP from '@/api';
 
 const initialState = {
   build: null,
-  status: 'created',
   isLoading: false,
   isError: false,
   error: null,
@@ -32,7 +31,7 @@ const mutations = {
     state.error = error;
   },
   [UPDATE_BUILD](state, payload) {
-    state.status = payload.status;
+    state.build.status = payload.status;
   },
 };
 

@@ -41,10 +41,11 @@ import moment from 'moment';
 
 export default {
   created() {
-    this.connection.on(`builds:${this.id}:update`, this.update.bind(this));
+    this.updateBuildStatusFn = this.update.bind(this);
+    this.connection.on(`builds:${this.id}:update`, this.updateBuildStatusFn);
   },
   destroyed() {
-    this.connection.off(`builds:${this.id}:update`);
+    this.connection.off(`builds:${this.id}:update`, this.updateBuildStatusFn);
   },
   computed: {
     ...mapGetters('socket', ['connection']),

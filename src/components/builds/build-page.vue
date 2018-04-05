@@ -23,12 +23,14 @@ export default {
     });
     this.updateBuildEvent = `builds:${id}:update`;
     this.newLogEvent = `logs:${id}:new`;
-    this.connection.on(this.newLogEvent, this.log.bind(this));
-    this.connection.on(this.updateBuildEvent, this.update.bind(this));
+    this.newLogEventFn = this.log.bind(this);
+    this.updateBuildEventFn = this.update.bind(this);
+    this.connection.on(this.newLogEvent, this.newLogEventFn);
+    this.connection.on(this.updateBuildEvent, this.updateBuildEventFn);
   },
   destroyed() {
-    this.connection.off(this.newLogEvent);
-    this.connection.off(this.updateBuildEvent);
+    this.connection.off(this.newLogEvent, this.newLogEventFn);
+    this.connection.off(this.updateBuildEvent, this.updateBuildEventFn);
   },
   computed: {
     ...mapGetters('socket', [
