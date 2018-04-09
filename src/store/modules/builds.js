@@ -58,13 +58,12 @@ const actions = {
 };
 
 const getters = {
-
 };
 
 export default {
-  namespaced: true,
-  state: initialState,
   actions,
   mutations,
   getters,
+  namespaced: true,
+  state: initialState,
 };

@@ -1,16 +1,16 @@
 import HTTP from '@/api';
 
+const SET_PROJECTS = 'SET_PROJECTS';
+const SET_PROJECTS_SUCCESS = 'SET_PROJECTS_SUCCESS';
+const SET_PROJECTS_FAILURE = 'SET_PROJECTS_FAILURE';
+const UPDATE_PROJECT_BY_ID = 'UPDATE_PROJECT_BY_ID';
+
 const initialState = {
   projects: [],
   isLoading: false,
   isError: false,
   error: null,
 };
-
-const SET_PROJECTS = 'SET_PROJECTS';
-const SET_PROJECTS_SUCCESS = 'SET_PROJECTS_SUCCESS';
-const SET_PROJECTS_FAILURE = 'SET_PROJECTS_FAILURE';
-const UPDATE_PROJECT_BY_ID = 'UPDATE_PROJECT_BY_ID';
 
 const mutations = {
   [SET_PROJECTS](state) {
@@ -50,9 +50,13 @@ const actions = {
   },
 };
 
+const getters = {
+};
+
 export default {
-  namespaced: true,
-  state: initialState,
   actions,
   mutations,
+  getters,
+  namespaced: true,
+  state: initialState,
 };

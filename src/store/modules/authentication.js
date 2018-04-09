@@ -2,7 +2,6 @@ import router from '@/router';
 import HTTP from '@/api';
 import Promise from 'bluebird';
 
-const PRESTART_WAIT = 1750;
 const LOGOUT = 'LOGOUT';
 const LOGOUT_SUCCESS = 'LOGOUT_COMPLETE';
 const LOGOUT_FAILURE = 'LOGOUT_FAILED';
@@ -68,7 +67,7 @@ const actions = {
   exchangeCodeForToken({ commit }, code) {
     commit(EXCHANGE_CODE_FOR_TOKEN);
     const authenticate = HTTP.post('/v1/sessions', { code });
-    const waitIfTooFast = Promise.delay(PRESTART_WAIT);
+    const waitIfTooFast = Promise.delay(process.env.PRESTART_WAIT);
     return Promise.all([authenticate, waitIfTooFast])
       .then(() => commit(EXCHANGE_CODE_FOR_TOKEN_SUCCESS))
       .then(() => router.push('/dashboard'))
@@ -76,9 +75,13 @@ const actions = {
   },
 };
 
+const getters = {
+};
+
 export default {
+  actions,
+  getters,
+  mutations,
   namespaced: true,
   state: initialState,
-  actions,
-  mutations,
 };

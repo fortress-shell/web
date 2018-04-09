@@ -1,5 +1,10 @@
 import HTTP from '@/api';
 
+const PREFETCH = 'PREFETCH';
+const PREFETCH_SUCCESS = 'PREFETCH_SUCCESS';
+const PREFETCH_FAILURE = 'PREFETCH_FAILURE';
+const LOG = 'LOG';
+
 const initialState = {
   logs: [],
   status: 'created',
@@ -7,11 +12,6 @@ const initialState = {
   isError: false,
   error: null,
 };
-
-const PREFETCH = 'PREFETCH';
-const PREFETCH_SUCCESS = 'PREFETCH_SUCCESS';
-const PREFETCH_FAILURE = 'PREFETCH_FAILURE';
-const LOG = 'LOG';
 
 const mutations = {
   [PREFETCH](state) {

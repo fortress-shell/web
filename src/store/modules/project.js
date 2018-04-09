@@ -1,15 +1,15 @@
 import HTTP from '@/api';
 
+const SET_PROJECT = 'SET_PROJECT';
+const SET_PROJECT_SUCCESS = 'SET_PROJECT_SUCCESS';
+const SET_PROJECT_FAILURE = 'SET_PROJECT_FAILURE';
+
 const initialState = {
   project: null,
   isLoading: false,
   isError: false,
   error: null,
 };
-
-const SET_PROJECT = 'SET_PROJECT';
-const SET_PROJECT_SUCCESS = 'SET_PROJECT_SUCCESS';
-const SET_PROJECT_FAILURE = 'SET_PROJECT_FAILURE';
 
 const mutations = {
   [SET_PROJECT](state) {
@@ -41,9 +41,13 @@ const actions = {
   },
 };
 
+const getters = {
+};
+
 export default {
-  namespaced: true,
-  state: initialState,
+  getters,
   actions,
   mutations,
+  namespaced: true,
+  state: initialState,
 };

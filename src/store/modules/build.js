@@ -1,16 +1,16 @@
 import HTTP from '@/api';
 
+const BUILD_PREFETCH = 'BUILD_PREFETCH';
+const BUILD_PREFETCH_SUCCESS = 'BUILD_PREFETCH_SUCCESS';
+const BUILD_PREFETCH_FAILURE = 'BUILD_PREFETCH_FAILURE';
+const UPDATE_BUILD = 'UPDATE_BUILD';
+
 const initialState = {
   build: null,
   isLoading: false,
   isError: false,
   error: null,
 };
-
-const BUILD_PREFETCH = 'BUILD_PREFETCH';
-const BUILD_PREFETCH_SUCCESS = 'BUILD_PREFETCH_SUCCESS';
-const BUILD_PREFETCH_FAILURE = 'BUILD_PREFETCH_FAILURE';
-const UPDATE_BUILD = 'UPDATE_BUILD';
 
 const mutations = {
   [BUILD_PREFETCH](state) {
@@ -38,8 +38,6 @@ const mutations = {
 const actions = {
   prefetch({ commit }, { projectId, id }) {
     commit(BUILD_PREFETCH);
-    /* eslint-disable */
-    console.log('fuck');
     HTTP.get(`/v1/projects/${projectId}/builds/${id}`)
       .then(response => response.data.build)
       .then(build => commit(BUILD_PREFETCH_SUCCESS, build))
@@ -50,9 +48,13 @@ const actions = {
   },
 };
 
+const getters = {
+};
+
 export default {
-  namespaced: true,
-  state: initialState,
   actions,
   mutations,
+  getters,
+  namespaced: true,
+  state: initialState,
 };
