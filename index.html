@@ -3,20 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link
-      rel="icon"
-      sizes="any"
-      type="image/png"
-      href="/static/shield.png"
-    />
+    <link rel="icon" sizes="any" type="image/png" href="/static/shield.png"/>
     <meta name="theme-color" content="#ffffff">
     <title>Fortress Shell</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <noscript>
+        <strong>Fortress Shell</strong>
+        This is very complex application that needs to be javascript enabled!
+        With best regards, Mikhail Faraponov founder of Fortress Shell
+      </noscript>
+    </div>
     <script
       src="<%- process.env.SESSION %>"
-      onload="SESSION_SCRIPT_LOADED = true"></script>
+      onload="SESSION_SCRIPT_LOADED = true">
+    </script>
     <!-- built files will be auto injected -->
   </body>
 </html>

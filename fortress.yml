@@ -1,0 +1,7 @@
+---
+machine:
+  environment:
+    FORTRESS_ENV: production
+test:
+  override:
+    - echo $FORTRESS_ENV
