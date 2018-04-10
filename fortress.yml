@@ -5,3 +5,4 @@ machine:
 test:
   override:
     - env
+    - sudo apt-get update
