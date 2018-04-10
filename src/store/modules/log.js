@@ -17,7 +17,8 @@ export default {
   },
   getters: {
     logs(state) {
-      return state.logs.concat()
+      return state.logs
+        .concat()
         .sort(sortByPosition)
         .reduce((a, c) => a + c.content, '');
     },

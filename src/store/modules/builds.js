@@ -14,8 +14,7 @@ export default {
     isError: false,
     error: null,
   },
-  getters: {
-  },
+  getters: {},
   actions: {
     prefetch({ commit }, id) {
       commit(SET_BUILDS);

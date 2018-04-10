@@ -6,9 +6,11 @@ const SET_SUBSCRIPTIONS_FAILURE = 'SET_SUBSCRIPTIONS_FAILURE';
 const SUBSCRIBE_SUCCESS = 'SUBSCRIBE_SUCCESS';
 const UNSUBSCRIBE_SUCCESS = 'UNSUBSCRIBE_SUCCESS';
 const SUBSCRIBE_BETWEEN = 'SUBSCRIBE_BETWEEN';
-const mapWithLoading = subscription => Object.assign(subscription, {
-  isLoading: false,
-});
+const getSubscriptions = response => response.data.subscriptions;
+const mapWithLoading = subscription =>
+  Object.assign(subscription, {
+    isLoading: false,
+  });
 
 export default {
   namespaced: true,
@@ -22,19 +24,21 @@ export default {
     prefetch({ commit }) {
       commit(SET_SUBSCRIPTIONS);
       HTTP.get('/v1/subscriptions')
-        .then(response => response.data.subscriptions)
+        .then(getSubscriptions)
         .then(subscriptions => commit(SET_SUBSCRIPTIONS_SUCCESS, subscriptions))
         .catch(error => commit(SET_SUBSCRIPTIONS_FAILURE, error));
     },
     subscribe({ commit }, id) {
       commit(SUBSCRIBE_BETWEEN, id);
-      HTTP.post('/v1/subscriptions', { id })
-        .then(() => commit(SUBSCRIBE_SUCCESS, id));
+      HTTP.post('/v1/subscriptions', { id }).then(() =>
+        commit(SUBSCRIBE_SUCCESS, id),
+      );
     },
     unsubscribe({ commit }, id) {
       commit(SUBSCRIBE_BETWEEN, id);
-      HTTP.delete(`/v1/subscriptions/${id}`)
-        .then(() => commit(UNSUBSCRIBE_SUCCESS, id));
+      HTTP.delete(`/v1/subscriptions/${id}`).then(() =>
+        commit(UNSUBSCRIBE_SUCCESS, id),
+      );
     },
   },
   mutations: {
@@ -73,6 +77,5 @@ export default {
       state.subscriptions = [];
     },
   },
-  getters: {
-  },
+  getters: {},
 };

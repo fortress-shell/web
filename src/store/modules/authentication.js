@@ -42,8 +42,7 @@ export default {
         .catch(error => commit(EXCHANGE_CODE_FOR_TOKEN_FAILURE, error));
     },
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
     [LOGOUT](state) {
       state.isLogoutLoading = true;

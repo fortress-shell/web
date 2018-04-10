@@ -4,10 +4,10 @@ const SET_PROJECTS = 'SET_PROJECTS';
 const SET_PROJECTS_SUCCESS = 'SET_PROJECTS_SUCCESS';
 const SET_PROJECTS_FAILURE = 'SET_PROJECTS_FAILURE';
 const UPDATE_PROJECT_BY_ID = 'UPDATE_PROJECT_BY_ID';
+const getProjects = response => response.data.projects;
 
 export default {
-  getters: {
-  },
+  getters: {},
   namespaced: true,
   state: {
     projects: [],
@@ -43,7 +43,7 @@ export default {
     prefetch({ commit }) {
       commit(SET_PROJECTS);
       HTTP.get('/v1/projects')
-        .then(response => response.data.projects)
+        .then(getProjects)
         .then(projects => commit(SET_PROJECTS_SUCCESS, projects))
         .catch(error => commit(SET_PROJECTS_FAILURE, error));
     },
