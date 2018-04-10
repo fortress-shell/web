@@ -1,7 +1,7 @@
 ---
 machine:
   environment:
-    FORTRESS_ENV: development
+    FORTRESS_ENV: production
 test:
   override:
     - env
