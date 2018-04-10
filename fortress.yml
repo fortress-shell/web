@@ -15,3 +15,5 @@ test:
     - echo timeout 4
     - sleep 10
     - echo timeout 10
+    - sleep 15
+    - echo 15
