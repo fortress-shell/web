@@ -5,22 +5,7 @@
     <article class="media">
         <div class="media-left">
           <figure class="image is-64x64">
-            <img v-if="status == 'successful'"
-              src="/static/success.svg">
-            <img v-else-if="status == 'failed'"
-              src="/static/exclamation-mark.svg">
-            <img v-else-if="status == 'running'"
-              src="/static/running.svg">
-            <img v-else-if="status == 'maintenanced'"
-              src="/static/fence.svg">
-            <img v-else-if="status == 'created'"
-              src="/static/new.svg">
-            <img v-else-if="status == 'scheduled'"
-              src="/static/queue.svg">
-            <img v-else-if="status == 'timeouted'"
-              src="/static/scheduled.svg">
-            <img v-else
-              src="/static/fence.svg">
+            <img :src="imageSourceByStatus">
           </figure>
         </div>
         <div class="media-content">
@@ -51,6 +36,17 @@ export default {
     ...mapGetters('socket', ['connection']),
     createdAtFromNow() {
       return moment(this.createdAt).fromNow();
+    },
+    imageSourceByStatus() {
+      return {
+        successful: '/static/success.svg',
+        failed: '/static/exclamation-mark.svg',
+        running: '/static/running.svg',
+        created: '/static/new.svg',
+        scheduled: '/static/queue.svg',
+        timeouted: '/static/scheduled.svg',
+        maintenanced: '/static/fence.svg',
+      }[this.status] || '/static/fence.svg';
     },
   },
   methods: {

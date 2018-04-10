@@ -12,6 +12,7 @@ import builds from './modules/builds';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  strict: true,
   modules: {
     socket,
     projects,
@@ -22,5 +23,4 @@ export default new Vuex.Store({
     build,
     builds,
   },
-  strict: process.env.NODE_ENV !== 'production',
 });

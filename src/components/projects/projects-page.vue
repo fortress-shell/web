@@ -37,7 +37,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
-import ProjectItem from './project-item';
+import ProjectItem from '@/components/projects/project-item';
 
 export default {
   created() {

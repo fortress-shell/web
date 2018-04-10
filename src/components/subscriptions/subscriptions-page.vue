@@ -44,7 +44,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
-import Checkbox from './checkbox';
+import Checkbox from '@/components/subscriptions/checkbox';
 
 export default {
   components: {

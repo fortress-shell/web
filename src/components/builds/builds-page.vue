@@ -24,18 +24,11 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import BuildItem from './build-item';
+import BuildItem from '@/components/builds/build-item';
 
 export default {
-  created() {
-    const projectId = this.$route.params.project_id;
-    this.source = this.prefetch(projectId);
-    this.newBuildEvent = `builds:${projectId}:new`;
-    this.newBuildEventFn = this.add.bind(this);
-    this.connection.on(this.newBuildEvent, this.newBuildEventFn);
-  },
-  destroyed() {
-    this.connection.off(this.newBuildEvent, this.newBuildEventFn);
+  components: {
+    'build-item': BuildItem,
   },
   computed: {
     ...mapState('builds', [
@@ -46,14 +39,21 @@ export default {
       'connection',
     ]),
   },
-  components: {
-    'build-item': BuildItem,
-  },
   methods: {
     ...mapActions('builds', [
       'prefetch',
       'add',
     ]),
+  },
+  created() {
+    const projectId = this.$route.params.project_id;
+    this.source = this.prefetch(projectId);
+    this.newBuildEvent = `builds:${projectId}:new`;
+    this.newBuildEventFn = this.add.bind(this);
+    this.connection.on(this.newBuildEvent, this.newBuildEventFn);
+  },
+  destroyed() {
+    this.connection.off(this.newBuildEvent, this.newBuildEventFn);
   },
 };
 </script>

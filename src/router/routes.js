@@ -12,7 +12,7 @@ import {
   onUnauthorizedRedirectToPageNotFound,
   onMaintenanceCompleteRedirectToHomePage,
   onOAuthLogin,
-} from './guards';
+} from '@/router/guards';
 
 export default [
   {

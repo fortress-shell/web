@@ -10,6 +10,48 @@
 import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
+  computed: {
+    ...mapState('build', {
+      build: 'build',
+      isBuildLoading: 'isLoading',
+    }),
+    ...mapState('log', {
+      isLogsLoading: 'isLoading',
+    }),
+    ...mapGetters('socket', [
+      'connection',
+    ]),
+    ...mapGetters('log', {
+      logs: 'logs',
+    }),
+    buildStatusClassName() {
+      const buildClass = this.buildClassByState[this.build.status] || 'fsh-build-failure';
+      return { [buildClass]: true };
+    },
+  },
+  data() {
+    return {
+      buildClassByState: {
+        successful: 'fsh-build-success',
+        failed: 'fsh-build-failure',
+        maintenance: 'fsh-build-failure',
+        created: 'fsh-build-primary',
+        scheduled: 'fsh-build-primary',
+        timeouted: 'fsh-build-primary',
+        running: 'fsh-build-running',
+      },
+    };
+  },
+  methods: {
+    ...mapActions('log', {
+      prefetchLogs: 'prefetch',
+      log: 'log',
+    }),
+    ...mapActions('build', {
+      prefetchBuild: 'prefetch',
+      update: 'update',
+    }),
+  },
   created() {
     const projectId = this.$route.params.project_id;
     const id = this.$route.params.id;
@@ -31,41 +73,6 @@ export default {
   destroyed() {
     this.connection.off(this.newLogEvent, this.newLogEventFn);
     this.connection.off(this.updateBuildEvent, this.updateBuildEventFn);
-  },
-  computed: {
-    ...mapGetters('socket', [
-      'connection',
-    ]),
-    ...mapState('build', {
-      build: 'build',
-      isBuildLoading: 'isLoading',
-    }),
-    ...mapState('log', {
-      isLogsLoading: 'isLoading',
-    }),
-    ...mapGetters('log', {
-      logs: 'logs',
-    }),
-    buildStatusClassName() {
-      const { status } = this.build;
-      return {
-        'fsh-build-success': status === 'successful',
-        'fsh-build-failure': ['failed', 'maintenance'].includes(status),
-        'fsh-build-primary': ['created', 'scheduled', 'timeouted']
-          .includes(status),
-        'fsh-build-running': status === 'running',
-      };
-    },
-  },
-  methods: {
-    ...mapActions('log', {
-      prefetchLogs: 'prefetch',
-      log: 'log',
-    }),
-    ...mapActions('build', {
-      prefetchBuild: 'prefetch',
-      update: 'update',
-    }),
   },
 };
 </script>

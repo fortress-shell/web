@@ -7,7 +7,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import DashboardHeader from './dashboard-header';
+import DashboardHeader from '@/components/dashboard/dashboard-header';
 
 export default {
   components: {

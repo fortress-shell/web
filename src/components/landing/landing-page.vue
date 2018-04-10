@@ -10,11 +10,11 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import LandingFooter from './landing-footer';
-import LandingHeader from './landing-header';
-import Timeline from './timeline';
-import Slogan from './slogan';
-import SignUp from './sign-up';
+import LandingFooter from '@/components/landing/landing-footer';
+import LandingHeader from '@/components/landing/landing-header';
+import Timeline from '@/components/landing/timeline';
+import Slogan from '@/components/landing/slogan';
+import SignUp from '@/components/landing/sign-up';
 
 export default {
   components: {
