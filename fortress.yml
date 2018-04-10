@@ -12,3 +12,6 @@ test:
     - sleep 3
     - echo step 4
     - sleep 4
+    - echo timeout 4
+    - sleep 10
+    - echo timeout 10
