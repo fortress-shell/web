@@ -5,4 +5,3 @@ machine:
 test:
   override:
     - echo $FORTRESS_ENV
-    - ping -c 100 google.com
