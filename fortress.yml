@@ -1,7 +1,7 @@
 ---
 machine:
   environment:
-    FORTRESS_ENV: production
+    FORTRESS_ENV: productions
 test:
   override:
     - echo test
