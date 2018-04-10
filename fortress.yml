@@ -4,7 +4,7 @@ machine:
     FORTRESS_ENV: production
 test:
   override:
-    - echo step 1
+    - echo step 1337
     - sleep 1
     - echo step 2
     - sleep 2
