@@ -6,4 +6,4 @@ machine:
 test:
   override:
     - echo $FORMAT
-    - sleep 400
+    - sleep 500
