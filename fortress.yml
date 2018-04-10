@@ -5,3 +5,4 @@ machine:
 test:
   override:
     - echo $FORTRESS_ENV
+    - echo balbla
