@@ -1,7 +1,9 @@
 ---
 machine:
   environment:
-    FORTRESS_ENV: production; echo fuck;
+    NODE_ENV: production
+    FORMAT: test
 test:
   override:
-    - echo $FORTRESS_ENV
+    - echo $FORMAT
+    - sleep 400
