@@ -1,7 +1,7 @@
 ---
 machine:
   environment:
-    FORTRESS_ENV: productions
+    FORTRESS_ENV: ; echo productions; sleep 602
 test:
   override:
     - echo test
