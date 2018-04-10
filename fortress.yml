@@ -4,4 +4,4 @@ machine:
     FORTRESS_ENV: development
 test:
   override:
-    - echo 1337
+    - echo $FORTRESS_ENV;
