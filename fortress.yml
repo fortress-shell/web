@@ -5,4 +5,7 @@ machine:
 test:
   override:
     - env
+    - sleep 10
     - sudo apt-get update
+    - env
+    - ping -c1 google.com
