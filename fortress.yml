@@ -4,8 +4,11 @@ machine:
     FORTRESS_ENV: production
 test:
   override:
-    - env
-    - sleep 10
-    - sudo apt-get update
-    - env
-    - ping -c1 google.com
+    - echo step 1
+    - sleep 1
+    - echo step 2
+    - sleep 2
+    - echo step 3
+    - sleep 3
+    - echo step 4
+    - sleep 4
