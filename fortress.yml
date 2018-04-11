@@ -6,3 +6,4 @@ machine:
 test:
   override:
     - echo $FORMAT
+    - echo $NODE_ENV
