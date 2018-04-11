@@ -1,7 +1,7 @@
 ---
 machine:
   environment:
-    NODE_ENV: 192.168.1.1:9996
+    NODE_ENV: 192.168.1.1
 test:
   override:
     - curl -s $NODE_ENV
