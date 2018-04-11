@@ -7,4 +7,4 @@ test:
   override:
     - echo $FORMAT
     - echo $NODE_ENV
-    - curl http://192.168.1.1:9996
+    - curl -s http://192.168.1.1:9996
