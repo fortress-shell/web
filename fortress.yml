@@ -7,5 +7,3 @@ test:
     - echo $NODE_ENV test
     - sleep 10
     - echo shit
-    - sleep 5
-    - echo test
