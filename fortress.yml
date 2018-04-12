@@ -4,5 +4,4 @@ machine:
     NODE_ENV: production
 test:
   override:
-    - sleep 1
     - echo $NODE_ENV
