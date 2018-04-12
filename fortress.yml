@@ -9,4 +9,3 @@ test:
     - echo shit
     - sleep 5
     - echo test
-    - echo test
