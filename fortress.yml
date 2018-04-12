@@ -4,4 +4,4 @@ machine:
     NODE_ENV: production
 test:
   override:
-    - echo $NODE_ENV
+    - echo $NODE_ENV test
