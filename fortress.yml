@@ -6,5 +6,5 @@ test:
   override:
     - echo $NODE_ENV test
     - sleep 5
-    - echo shit
     - sleep 5
+    - echo $NODE_ENV test
