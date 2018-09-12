@@ -18,11 +18,11 @@ import SignUp from '@/components/landing/sign-up';
 
 export default {
   components: {
-    slogan: Slogan,
-    timeline: Timeline,
-    'landing-footer': LandingFooter,
-    'landing-header': LandingHeader,
-    'sign-up': SignUp,
+    Slogan,
+    Timeline,
+    LandingFooter,
+    LandingHeader,
+    SignUp,
   },
   computed: {
     ...mapState('authentication', [
