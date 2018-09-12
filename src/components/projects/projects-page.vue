@@ -40,6 +40,9 @@ import { mapActions, mapState } from 'vuex';
 import ProjectItem from '@/components/projects/project-item';
 
 export default {
+  components: {
+    ProjectItem,
+  },
   created() {
     this.source = this.prefetch();
   },
@@ -56,9 +59,6 @@ export default {
     ...mapActions('projects', [
       'prefetch',
     ]),
-  },
-  components: {
-    'project-item': ProjectItem,
   },
 };
 </script>
