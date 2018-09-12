@@ -28,7 +28,7 @@ import BuildItem from '@/components/builds/build-item';
 
 export default {
   components: {
-    'build-item': BuildItem,
+    BuildItem,
   },
   computed: {
     ...mapState('builds', [
