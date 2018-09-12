@@ -11,7 +11,7 @@ import DashboardHeader from '@/components/dashboard/dashboard-header';
 
 export default {
   components: {
-    'dashboard-header': DashboardHeader,
+    DashboardHeader,
   },
   methods: {
     ...mapActions('socket', [
