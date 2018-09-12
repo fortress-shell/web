@@ -48,7 +48,7 @@ import Checkbox from '@/components/subscriptions/checkbox';
 
 export default {
   components: {
-    checkbox: Checkbox,
+    Checkbox,
   },
   created() {
     this.source = this.prefetch();
