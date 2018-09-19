@@ -13,7 +13,6 @@ export default {
     isError: false,
     error: null,
   },
-  getters: {},
   mutations: {
     [BUILD_PREFETCH](state) {
       state.isLoading = true;
