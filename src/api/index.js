@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default axios.create({
   baseURL: process.env.API_URL,
-  timeout: process.env.API_TIMEOUT,
+  timeout: parseInt(process.env.API_TIMEOUT),
   withCredentials: true,
   xsrfCookieName: '_csrf_token',
   xsrfHeaderName: 'X-CSRF-Token',
